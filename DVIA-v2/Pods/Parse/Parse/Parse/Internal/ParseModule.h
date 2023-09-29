@@ -8,13 +8,12 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <Bolts/Bolts.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ParseModule <NSObject>
 
-- (BFTask *)parseDidInitializeWithApplicationId:(NSString *)applicationId clientKey:(nullable NSString *)clientKey;
+- (void)parseDidInitializeWithApplicationId:(NSString *)applicationId clientKey:(nullable NSString *)clientKey;
 
 @end
 

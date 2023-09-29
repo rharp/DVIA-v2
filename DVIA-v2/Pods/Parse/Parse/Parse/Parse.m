@@ -33,8 +33,6 @@
 
 #import "PFCategoryLoader.h"
 
-NSString *const PFParseInitializeDidCompleteNotification = @"PFParseInitializeDidCompleteNotification";
-
 @implementation Parse
 
 static ParseManager *currentParseManager_;
@@ -86,19 +84,9 @@ static ParseClientConfiguration *currentParseConfiguration_;
     [PFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 #endif
 
-    [[[currentParseManager_ preloadDiskObjectsToMemoryAsync] continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
-        return [[self parseModulesCollection] parseDidInitializeWithApplicationId:configuration.applicationId
-                                                                        clientKey:configuration.clientKey];
-    }] continueWithSuccessBlock:^id _Nullable(BFTask * _Nonnull t) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:PFParseInitializeDidCompleteNotification
-                                                            object:nil];
-        return nil;
-    }];
-    
-}
+    [currentParseManager_ preloadDiskObjectsToMemoryAsync];
 
-+ (void)setServer:(nonnull NSString *)server {
-    [PFInternalUtils setParseServer:server];
+    [[self parseModulesCollection] parseDidInitializeWithApplicationId:configuration.applicationId clientKey:configuration.clientKey];
 }
 
 + (nullable ParseClientConfiguration *)currentConfiguration {
@@ -123,10 +111,6 @@ static ParseClientConfiguration *currentParseConfiguration_;
 
 + (nullable NSString *)getClientKey {
     return [self clientKey];
-}
-
-+ (nullable NSString *)server {
-    return [[PFInternalUtils parseServerURLString] copy];
 }
 
 ///--------------------------------------

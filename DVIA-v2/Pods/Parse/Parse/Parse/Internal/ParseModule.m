@@ -75,19 +75,12 @@ typedef void (^ParseModuleEnumerationBlock)(id<ParseModule> module, BOOL *stop, 
 #pragma mark - ParseModule
 ///--------------------------------------
 
-- (BFTask *)parseDidInitializeWithApplicationId:(NSString *)applicationId clientKey:(nullable NSString *)clientKey {
-    
-    BFTaskCompletionSource *completion = [BFTaskCompletionSource new];
-    
+- (void)parseDidInitializeWithApplicationId:(NSString *)applicationId clientKey:(nullable NSString *)clientKey {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self enumerateModulesWithBlock:^(id<ParseModule> module, BOOL *stop, BOOL *remove) {
             [module parseDidInitializeWithApplicationId:applicationId clientKey:clientKey];
         }];
-        [completion setResult:nil];
     });
-    
-    return completion.task;
-    
 }
 
 ///--------------------------------------

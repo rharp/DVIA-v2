@@ -143,11 +143,6 @@ typedef struct PLCrashReporterCallbacks {
 - (void) setCrashCallbacks: (PLCrashReporterCallbacks *) callbacks;
 
 /**
- * Return the path to live crash report (which may not yet, or ever, exist).
- */
-- (NSString *) crashReportPath;
-
-/**
  * Custom data to save in the crash report.
  */
 @property(nonatomic, strong) NSData *customData;

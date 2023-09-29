@@ -1,11 +1,12 @@
 use_frameworks!
 
 target 'DVIA-v2' do
-    pod 'Parse'
+    pod 'Parse', '1.17.3'
     pod 'GoogleAnalytics'
     pod 'RealmSwift'
     pod 'couchbase-lite-ios'
-    pod 'Flurry-iOS-SDK/FlurrySDK'
+    pod 'libwebp', '1.3.0'
+    pod 'Flurry-iOS-SDK/FlurrySDK', '12.0.0'
 end
 
 post_install do |installer|
